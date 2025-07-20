@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Promo Banner Generator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2rem;
+        }
+        form {
+            margin-bottom: 2rem;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type=text] {
+            width: 300px;
+            margin-bottom: 1rem;
+        }
+        .banner-img {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 AI Promotional Banner Generator</h1>
+
+    <form method="post">
+        <label>Theme:</label><br>
+        <input type="text" name="theme" required><br>
+
+        <label>Products (comma-separated):</label><br>
+        <input type="text" name="products" required><br>
+
+        <label>Offer:</label><br>
+        <input type="text" name="offer" required><br>
+
+        <label>Color Palette (comma-separated):</label><br>
+        <input type="text" name="colors" required><br><br>
+
+        <button type="submit">Generate Banner</button>
+    </form>
+
+    {% if image_url %}
+        <h2>🖼️ Generated Banner:</h2>
+        <div class="banner-img">
+            <img src="{{ image_url }}" alt="Generated Banner" width="500">
+        </div>
+        <p><a href="{{ url_for('download_image', url=image_url) }}">⬇️ Download Image</a></p>
+
+        <h3>🧠 Prompt Used:</h3>
+        <pre>{{ prompt }}</pre>
+    {% endif %}
+</body>
+</html>
