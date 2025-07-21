@@ -1,7 +1,10 @@
 flask
-openai
-python-dotenv
-azure-identity
-requests
-gunicorn
 flask-cors
+pymongo
+bson
+flask-jwt-extended
+bcrypt
+python-dotenv
+openai
+gunicorn
+werkzeug
