@@ -200,7 +200,7 @@ bannercraft/
   <table>
     <tr>
       <td><img src="https://github.com/jaycodes2/AI_Banner_app/blob/main/Screenshot%202025-07-21%20193314.png"/></td>
-      <td><img src="https://via.placeholder.com/400x225?text=Banner+Generator" alt="Banner Generator"/></td>
+      <td><img src="https://github.com/jaycodes2/AI_Banner_app/blob/affe5c1d5809cc5fbc68abc5cdd9bea1c86f415a/Screenshot%202025-07-21%20193921.png"/></td>
     </tr>
     <tr>
       <td><img src="https://github.com/jaycodes2/AI_Banner_app/blob/10a083021a3bce157525819e3a13f78922dced01/Screenshot%202025-07-21%20193745.png"/></td>
