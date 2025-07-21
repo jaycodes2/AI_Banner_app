@@ -1,7 +1,7 @@
 // 
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:5000/api'; // adjust if deployed
+const API_BASE = import.meta.env.VITE_API_BASE_URL; // adjust if deployed
 
 export const loginUser = async (email, password) => {
   const res = await axios.post(`${API_BASE}/login`, { email, password });
