@@ -240,11 +240,3 @@ bannercraft/
 - Jayanthan P - Lead Developer
 
 ---
-
-<div align="center">
-  <p>Made with ❤️ by the BannerCraft Team</p>
-  <p>
-    <a href="https://github.com/yourusername/bannercraft">GitHub</a> •
-    <a href="https://bannercraft-demo.vercel.app">Live Demo</a>
-  </p>
-</div>
