@@ -1,168 +1,270 @@
-Got it. Here's the **entire `README.md`** in a single raw text block — no formatting breaks, no explanations — ready for you to copy-paste directly:
+# 🎨 BannerCraft
 
----
+<div align="center">
 
-````
-# 🧠 AI Banner App
+![BannerCraft Logo](https://img.shields.io/badge/BannerCraft-AI%20Banner%20Generator-blue?style=for-the-badge)
 
-**Design stunning AI-generated banners in seconds.**  
-Built with MERN stack, OpenAI integration & a modern UX.
+**Create stunning marketing banners powered by AI in seconds**
 
-<p align="center">
-  <a href="https://ai-banner-app.vercel.app" target="_blank">🌐 Live Demo</a> ·
-  <a href="https://github.com/jaycodes2/AI_Banner_app/issues" target="_blank">Report Bug</a> ·
-  <a href="https://github.com/jaycodes2/AI_Banner_app" target="_blank">Star This Repo ⭐</a>
-</p>
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
+[![Flask](https://img.shields.io/badge/Flask-Python-000000?style=flat-square&logo=flask)](https://flask.palletsprojects.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=flat-square&logo=mongodb)](https://www.mongodb.com/)
+[![Azure OpenAI](https://img.shields.io/badge/Azure-OpenAI-0078D4?style=flat-square&logo=microsoft-azure)](https://azure.microsoft.com/en-us/services/cognitive-services/openai-service/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Styling-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
 
----
+</div>
 
-## 🚀 Overview
+## ✨ Features
 
-The **AI Banner App** lets users create visually stunning banners powered by AI prompts.  
-Simply sign in, enter your creative ideas, and let the app generate polished banners using OpenAI.
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/-%F0%9F%A4%96%20AI%20Generation-blueviolet" alt="AI Generation"/><br />
+        <b>AI-Powered Banners</b><br />
+        Create professional marketing<br />banners with DALL-E 3
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/-%F0%9F%94%92%20Secure-success" alt="Secure"/><br />
+        <b>User Authentication</b><br />
+        JWT-based secure<br />authentication system
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/-%F0%9F%93%8A%20Analytics-blue" alt="Analytics"/><br />
+        <b>Banner Statistics</b><br />
+        Track usage and<br />generation metrics
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/-%F0%9F%91%A4%20Profiles-orange" alt="Profiles"/><br />
+        <b>Profile Management</b><br />
+        Customize user profiles<br />and avatars
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/-%F0%9F%93%9A%20History-yellow" alt="History"/><br />
+        <b>Banner History</b><br />
+        View and manage<br />previous generations
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/-%F0%9F%8E%A8%20Templates-red" alt="Templates"/><br />
+        <b>Banner Templates</b><br />
+        Use and customize<br />pre-made templates
+      </td>
+    </tr>
+  </table>
+</div>
 
-**Key Features**  
-- 🔐 JWT Auth with protected routes  
-- 🎨 Prompt-based banner generation  
-- 📂 Save and manage your creations  
-- 💡 Sleek, modern UI with dark mode  
-- ☁️ Hosted on Vercel (frontend) & Render (backend)
-
----
-
-## 🌍 Live URLs
-
-| Frontend | Backend |
-|----------|---------|
-| [ai-banner-app.vercel.app](https://ai-banner-app.vercel.app) | [ai-banner-app.onrender.com](https://ai-banner-app.onrender.com) |
-
----
-
-## 📸 Preview
-
-> _[Add screenshot or GIF of the app here if available]_
-
----
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React, Tailwind CSS, Framer Motion, Lucide Icons  
-- **Backend**: Node.js, Express.js, MongoDB, JWT  
-- **AI Integration**: OpenAI API  
-- **Hosting**: Vercel (Frontend), Render (Backend)
-
----
-
-## ⚙️ Getting Started (Local Development)
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js & npm  
-- MongoDB (Atlas or Local)  
-- OpenAI API Key
+- Python 3.8+
+- Node.js 16+
+- MongoDB
+- Azure OpenAI API access
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/jaycodes2/AI_Banner_app.git
-cd AI_Banner_app
-````
-
-### 2. Backend Setup
+### Backend Setup
 
 ```bash
-cd server
+# Clone the repository
+git clone https://github.com/yourusername/bannercraft.git
+cd bannercraft
+
+# Setup backend
+cd backend
+python -m venv venv
+
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create .env file (see example below)
+# Start the server
+python app.py
+```
+
+#### Backend `.env` Example
+
+```
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/bannercraft
+JWT_SECRET_KEY=your_secure_jwt_secret_key
+AZURE_OPENAI_KEY=your_azure_openai_key
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+API_VERSION=2024-04-01-preview
+CHAT_DEPLOYMENT=your_chat_model_deployment_name
+DALLE_DEPLOYMENT=your_dalle_model_deployment_name
+```
+
+### Frontend Setup
+
+```bash
+# Navigate to frontend directory
+cd ../frontend
+
+# Install dependencies
 npm install
-```
 
-Create a `.env` file inside `server/`:
-
-```
-PORT=5000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-OPENAI_API_KEY=your_openai_key
-CLIENT_URL=http://localhost:5173
-```
-
-Run backend server:
-
-```bash
+# Create .env file
+# Start development server
 npm run dev
 ```
 
-### 3. Frontend Setup
+#### Frontend `.env` Example
+
+```
+VITE_API_URL=http://localhost:5000/api
+```
+
+## 🏗️ Architecture
+
+<div align="center">
+  <img src="https://via.placeholder.com/800x400?text=BannerCraft+Architecture" alt="Architecture Diagram" width="800"/>
+</div>
+
+### Tech Stack Overview
+
+#### 🔹 Backend
+- **Framework**: Flask (Python)
+- **Database**: MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
+- **AI Integration**: Azure OpenAI API (DALL-E 3)
+- **Key Libraries**: flask-cors, bcrypt, python-dotenv
+
+#### 🔸 Frontend
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **Styling**: TailwindCSS
+- **Routing**: React Router v7
+- **UI Components**: Framer Motion, Lucide React
+- **HTTP Client**: Axios
+
+## 📁 Project Structure
+
+```
+bannercraft/
+├── 🔹 backend/
+│   ├── app.py               # Main Flask application
+│   ├── requirements.txt     # Python dependencies
+│   ├── static/              # Static files and uploads
+│   └── templates/           # HTML templates
+│
+└── 🔸 frontend/
+    ├── public/              # Public assets
+    ├── src/                 # Source code
+    │   ├── components/      # React components
+    │   ├── pages/           # Page components
+    │   ├── services/        # API services
+    │   └── App.jsx          # Main application component
+    ├── index.html           # HTML entry point
+    ├── package.json         # NPM dependencies
+    └── vite.config.js       # Vite configuration
+```
+
+## 🔌 API Endpoints
+
+### Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/signup` | Register a new user |
+| `POST` | `/api/login` | Authenticate a user |
+| `GET`  | `/api/me` | Get current user profile |
+
+### Profile Management
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/update-profile` | Update user profile |
+| `POST` | `/api/upload-profile-image` | Upload profile image |
+
+### Banner Operations
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/generate` | Generate a new banner using AI |
+| `GET`  | `/api/history` | Get generation history |
+| `GET`  | `/api/banners` | Get all user banners |
+| `POST` | `/api/banners` | Save a new banner |
+| `DELETE` | `/api/banners/<banner_id>` | Delete a banner |
+| `GET`  | `/api/banners/stats` | Get banner statistics |
+
+## 🖼️ Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="https://via.placeholder.com/400x225?text=Home+Page" alt="Home Page"/></td>
+      <td><img src="https://via.placeholder.com/400x225?text=Banner+Generator" alt="Banner Generator"/></td>
+    </tr>
+    <tr>
+      <td><img src="https://via.placeholder.com/400x225?text=User+Dashboard" alt="User Dashboard"/></td>
+      <td><img src="https://via.placeholder.com/400x225?text=Banner+History" alt="Banner History"/></td>
+    </tr>
+  </table>
+</div>
+
+## 🚀 Deployment
+
+### Backend Deployment
+
+The Flask backend can be deployed to:
+- **Heroku**: Easy deployment with Procfile
+- **Azure App Service**: Seamless integration with Azure OpenAI
+- **AWS Elastic Beanstalk**: Scalable deployment option
+
+### Frontend Deployment
+
+The React frontend is configured for deployment on:
+- **Vercel**: Zero-configuration deployment (recommended)
+- **Netlify**: Simple deployment from Git
+- **GitHub Pages**: Free hosting option
+
+## 🛠️ Development
+
+### Running Tests
 
 ```bash
-cd client
-npm install
+# Backend tests
+cd backend
+pytest
+
+# Frontend tests
+cd frontend
+npm test
 ```
 
-Create a `.env` file inside `client/`:
-
-```
-VITE_API_BASE_URL=http://localhost:5000/api
-```
-
-Run frontend:
+### Code Linting
 
 ```bash
-npm run dev
+# Backend linting
+cd backend
+flake8
+
+# Frontend linting
+cd frontend
+npm run lint
 ```
-
----
-
-## ✨ Features in Detail
-
-* 🧠 **AI Banner Generation** — Enter a prompt and generate a design
-* 📋 **Auth** — Login & Signup using JWT (protected routes)
-* 🎛️ **User Dashboard** — Access history and profile
-* 🌗 **Dark Mode** — Toggle & auto-detect system theme
-* ⚡ **Smooth Animations** — Powered by Framer Motion
-
----
-
-## 🗂️ Folder Structure
-
-```
-AI_Banner_app/
-├── client/         # React frontend
-│   ├── components/
-│   ├── context/
-│   └── ...
-├── server/         # Express backend
-│   ├── routes/
-│   ├── controllers/
-│   └── ...
-```
-
----
-
-## 👨‍💻 Author
-
-**Jayanthan P**
-GitHub: [@jaycodes2](https://github.com/jaycodes2)
-
----
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE)
+[MIT License](LICENSE)
+
+## 👥 Contributors
+
+- Your Name - Lead Developer
 
 ---
 
-## 🤝 Contributing
-
-Pull requests are welcome! If you find bugs or want to suggest features:
-👉 [Open an issue](https://github.com/jaycodes2/AI_Banner_app/issues)
-
----
-
-> ⭐ If you found this useful, give it a star and share it!
-
-```
-
----
-
-Done. Paste this straight into your `README.md`. Let me know if you want it enhanced with badges, preview GIFs, or a custom banner.
-```
+<div align="center">
+  <p>Made with ❤️ by the BannerCraft Team</p>
+  <p>
+    <a href="https://github.com/yourusername/bannercraft">GitHub</a> •
+    <a href="https://bannercraft-demo.vercel.app">Live Demo</a>
+  </p>
+</div>
