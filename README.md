@@ -204,7 +204,6 @@ bannercraft/
     </tr>
     <tr>
       <td><img src="https://github.com/jaycodes2/AI_Banner_app/blob/10a083021a3bce157525819e3a13f78922dced01/Screenshot%202025-07-21%20193745.png"/></td>
-      <td><img src="" alt="Banner History"/></td>
     </tr>
   </table>
 </div>
