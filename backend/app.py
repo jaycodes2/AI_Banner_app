@@ -22,7 +22,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # ✅ Use proper CORS configuration (localhost + Vercel frontend)
-CORS(app, resources={r"/api/*": {"origins": ["https://ai-banner-app.vercel.app/"}}, supports_credentials=True)
+CORS(app, resources={r"/api/*": {"origins": ["https://ai-banner-app.vercel.app/"]}}, supports_credentials=True)
 
 
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "supersecret")
