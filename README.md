@@ -203,8 +203,8 @@ bannercraft/
       <td><img src="https://via.placeholder.com/400x225?text=Banner+Generator" alt="Banner Generator"/></td>
     </tr>
     <tr>
-      <td><img src="https://via.placeholder.com/400x225?text=User+Dashboard" alt="User Dashboard"/></td>
-      <td><img src="https://via.placeholder.com/400x225?text=Banner+History" alt="Banner History"/></td>
+      <td><img src="https://github.com/jaycodes2/AI_Banner_app/blob/10a083021a3bce157525819e3a13f78922dced01/Screenshot%202025-07-21%20193745.png"/></td>
+      <td><img src="" alt="Banner History"/></td>
     </tr>
   </table>
 </div>
