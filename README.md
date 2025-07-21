@@ -29,22 +29,12 @@
         <b>User Authentication</b><br />
         JWT-based secure<br />authentication system
       </td>
-      <td align="center">
-        <img src="https://img.shields.io/badge/-%F0%9F%93%8A%20Analytics-blue" alt="Analytics"/><br />
-        <b>Banner Statistics</b><br />
-        Track usage and<br />generation metrics
-      </td>
     </tr>
     <tr>
       <td align="center">
         <img src="https://img.shields.io/badge/-%F0%9F%91%A4%20Profiles-orange" alt="Profiles"/><br />
         <b>Profile Management</b><br />
         Customize user profiles<br />and avatars
-      </td>
-      <td align="center">
-        <img src="https://img.shields.io/badge/-%F0%9F%93%9A%20History-yellow" alt="History"/><br />
-        <b>Banner History</b><br />
-        View and manage<br />previous generations
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/-%F0%9F%8E%A8%20Templates-red" alt="Templates"/><br />
