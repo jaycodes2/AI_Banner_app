@@ -199,7 +199,7 @@ bannercraft/
 <div align="center">
   <table>
     <tr>
-      <td><img src="https://via.placeholder.com/400x225?text=Home+Page" alt="Home Page"/></td>
+      <td><img src="https://github.com/jaycodes2/AI_Banner_app/blob/main/Screenshot%202025-07-21%20193314.png"/></td>
       <td><img src="https://via.placeholder.com/400x225?text=Banner+Generator" alt="Banner Generator"/></td>
     </tr>
     <tr>
