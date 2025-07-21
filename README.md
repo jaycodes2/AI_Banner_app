@@ -210,55 +210,9 @@ bannercraft/
   </table>
 </div>
 
-## 🚀 Deployment
-
-### Backend Deployment
-
-The Flask backend can be deployed to:
-- **Heroku**: Easy deployment with Procfile
-- **Azure App Service**: Seamless integration with Azure OpenAI
-- **AWS Elastic Beanstalk**: Scalable deployment option
-
-### Frontend Deployment
-
-The React frontend is configured for deployment on:
-- **Vercel**: Zero-configuration deployment (recommended)
-- **Netlify**: Simple deployment from Git
-- **GitHub Pages**: Free hosting option
-
-## 🛠️ Development
-
-### Running Tests
-
-```bash
-# Backend tests
-cd backend
-pytest
-
-# Frontend tests
-cd frontend
-npm test
-```
-
-### Code Linting
-
-```bash
-# Backend linting
-cd backend
-flake8
-
-# Frontend linting
-cd frontend
-npm run lint
-```
-
-## 📄 License
-
-[MIT License](LICENSE)
-
 ## 👥 Contributors
 
-- Your Name - Lead Developer
+- Jayanthan P - Lead Developer
 
 ---
 
