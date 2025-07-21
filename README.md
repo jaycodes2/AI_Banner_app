@@ -114,7 +114,42 @@ VITE_API_URL=http://localhost:5000/api
 ## 🏗️ Architecture
 
 <div align="center">
-  <img src="https://via.placeholder.com/800x400?text=BannerCraft+Architecture" alt="Architecture Diagram" width="800"/>
+
+```mermaid
+graph TD
+    subgraph "Frontend - React"
+        UI[User Interface] --> ReactApp[React Application]
+        ReactApp --> Router[React Router]
+        ReactApp --> ApiService[API Service Layer]
+        ReactApp --> State[State Management]
+    end
+
+    subgraph "Backend - Flask"
+        API[Flask API] --> Auth[JWT Authentication]
+        API --> Controllers[API Controllers]
+        Controllers --> BannerService[Banner Service]
+        Controllers --> UserService[User Service]
+        BannerService --> AIService[AI Integration Service]
+    end
+
+    subgraph "External Services"
+        AIService --> AzureOpenAI[Azure OpenAI]
+        AzureOpenAI --> DALLE[DALL-E 3]
+    end
+
+    subgraph "Database"
+        MongoDB[(MongoDB)] --> Collections[Collections]
+        Collections --> Users[Users Collection]
+        Collections --> Banners[Banners Collection]
+        Collections --> History[History Collection]
+    end
+
+    ApiService --> API
+    UserService --> MongoDB
+    BannerService --> MongoDB
+```
+
+*BannerCraft System Architecture*
 </div>
 
 ### Tech Stack Overview
