@@ -22,11 +22,15 @@ load_dotenv()
 app = Flask(__name__)
 
 # ✅ Use proper CORS configuration (localhost + configurable frontend origins)
-allowed_origins = [o.strip() for o in os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:5173,https://ai-banner-app.vercel.app"
-).split(",") if o.strip()]
-CORS(app, resources={r"/api/*": {"origins": allowed_origins}}, supports_credentials=True)
+origins_regex = os.getenv("ALLOWED_ORIGINS_REGEX")
+if origins_regex:
+    CORS(app, resources={r"/api/*": {"origins": origins_regex}}, supports_credentials=True)
+else:
+    allowed_origins = [o.strip() for o in os.getenv(
+        "ALLOWED_ORIGINS",
+        "http://localhost:5173,https://ai-banner-app.vercel.app"
+    ).split(",") if o.strip()]
+    CORS(app, resources={r"/api/*": {"origins": allowed_origins}}, supports_credentials=True)
 
 
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "supersecret")
