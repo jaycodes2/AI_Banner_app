@@ -106,10 +106,10 @@ npm run dev
 #### Frontend `.env` Example
 
 ```
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=https://your-backend-domain.example.com/api
 ```
 
-> Note: This project previously used Azure OpenAI. It now uses the standard OpenAI API with `OPENAI_API_KEY`, `OPENAI_CHAT_MODEL`, and `OPENAI_IMAGE_MODEL`.
+> Note: This project previously used Azure OpenAI. It now uses AI Horde for image generation (no key required).
 
 ## 🏗️ Architecture
 
