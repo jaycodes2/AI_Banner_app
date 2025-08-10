@@ -10,7 +10,7 @@ const LandingPage = ({ onLogin, onSignup, isLoading }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const features = [
-    { icon: Sparkles, title: 'AI-Powered Generation', description: 'Create stunning banners with DALL·E 3 technology' },
+    { icon: Sparkles, title: 'AI-Powered Generation', description: 'Create stunning banners with state-of-the-art AI' },
     { icon: Palette, title: 'Smart Color Palettes', description: 'Intelligent color suggestions for your brand' },
     { icon: Zap, title: 'Lightning Fast', description: 'Generate professional banners in seconds' },
     { icon: Download, title: 'High-Quality Export', description: 'Download in multiple formats and resolutions' },
@@ -42,7 +42,7 @@ const LandingPage = ({ onLogin, onSignup, isLoading }) => {
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }} className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-lg border border-white/20 px-5 py-2 rounded-full animate-pulse">
               <Sparkles className="w-5 h-5 text-yellow-300 animate-bounce" />
-              <span className="font-medium">Powered by DALL·E 3</span>
+              <span className="font-medium">AI Powered</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold leading-tight bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-400 bg-clip-text text-transparent drop-shadow-xl">
               Create Stunning AI Banners

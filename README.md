@@ -9,7 +9,7 @@
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
 [![Flask](https://img.shields.io/badge/Flask-Python-000000?style=flat-square&logo=flask)](https://flask.palletsprojects.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=flat-square&logo=mongodb)](https://www.mongodb.com/)
-[![Azure OpenAI](https://img.shields.io/badge/Azure-OpenAI-0078D4?style=flat-square&logo=microsoft-azure)](https://azure.microsoft.com/en-us/services/cognitive-services/openai-service/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-API-412991?style=flat-square&logo=openai)](https://platform.openai.com/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Styling-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
 
 </div>
@@ -52,7 +52,7 @@
 - Python 3.8+
 - Node.js 16+
 - MongoDB
-- Azure OpenAI API access
+- OpenAI API access (or compatible provider)
 
 ### Backend Setup
 
@@ -84,11 +84,9 @@ python app.py
 ```
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/bannercraft
 JWT_SECRET_KEY=your_secure_jwt_secret_key
-AZURE_OPENAI_KEY=your_azure_openai_key
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
-API_VERSION=2024-04-01-preview
-CHAT_DEPLOYMENT=your_chat_model_deployment_name
-DALLE_DEPLOYMENT=your_dalle_model_deployment_name
+OPENAI_API_KEY=sk-...
+OPENAI_CHAT_MODEL=gpt-4o-mini
+OPENAI_IMAGE_MODEL=gpt-image-1
 ```
 
 ### Frontend Setup
@@ -110,6 +108,8 @@ npm run dev
 ```
 VITE_API_URL=http://localhost:5000/api
 ```
+
+> Note: This project previously used Azure OpenAI. It now uses the standard OpenAI API with `OPENAI_API_KEY`, `OPENAI_CHAT_MODEL`, and `OPENAI_IMAGE_MODEL`.
 
 ## 🏗️ Architecture
 
@@ -133,8 +133,7 @@ graph TD
     end
 
     subgraph "External Services"
-        AIService --> AzureOpenAI[Azure OpenAI]
-        AzureOpenAI --> DALLE[DALL-E 3]
+        AIService --> OpenAI[OpenAI Chat + Images]
     end
 
     subgraph "Database"
@@ -158,7 +157,7 @@ graph TD
 - **Framework**: Flask (Python)
 - **Database**: MongoDB
 - **Authentication**: JWT (JSON Web Tokens)
-- **AI Integration**: Azure OpenAI API (DALL-E 3)
+- **AI Integration**: OpenAI API (Images + Chat)
 - **Key Libraries**: flask-cors, bcrypt, python-dotenv
 
 #### 🔸 Frontend

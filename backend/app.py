@@ -13,7 +13,7 @@ import datetime
 import uuid
 import werkzeug
 from dotenv import load_dotenv
-from openai import AzureOpenAI
+from openai import OpenAI
 import json
 
 # Load environment variables
@@ -39,14 +39,10 @@ users_collection = db["users"]
 history_collection = db["history"]
 banners_collection = db["banners"]
 
-# Azure OpenAI setup
-client = AzureOpenAI(
-    api_key=os.getenv("AZURE_OPENAI_KEY"),
-    api_version=os.getenv("API_VERSION", "2024-04-01-preview"),
-    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
-)
-CHAT_DEPLOYMENT = os.getenv("CHAT_DEPLOYMENT")
-DALLE_DEPLOYMENT = os.getenv("DALLE_DEPLOYMENT")
+# OpenAI setup
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+OPENAI_CHAT_MODEL = os.getenv("OPENAI_CHAT_MODEL", "gpt-4o-mini")
+OPENAI_IMAGE_MODEL = os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-1")
 
 @app.errorhandler(NoAuthorizationError)
 def handle_no_auth(err):
@@ -80,7 +76,7 @@ Please write a vivid, visually rich DALL·E 3 prompt that includes:
 Output only the generated prompt.
 """
     response = client.chat.completions.create(
-        model=CHAT_DEPLOYMENT,
+        model=OPENAI_CHAT_MODEL,
         messages=[
             {
                 "role": "system",
@@ -93,14 +89,19 @@ Output only the generated prompt.
 
 def generate_banner_image(prompt):
     result = client.images.generate(
-        model=DALLE_DEPLOYMENT,
+        model=OPENAI_IMAGE_MODEL,
         prompt=prompt,
-        n=1,
         size="1024x1024",
-        style="vivid",
-        quality="standard"
+        quality="standard",
+        response_format="url"
     )
-    return json.loads(result.model_dump_json())["data"][0]["url"]
+    try:
+        return result.data[0].url
+    except Exception:
+        try:
+            return "data:image/png;base64," + result.data[0].b64_json
+        except Exception:
+            raise RuntimeError("Failed to generate image URL from OpenAI response")
 
 @app.route("/api/signup", methods=["POST"])
 def signup():
@@ -236,7 +237,7 @@ def upload_profile_image():
 def generate_banner():
     data = request.json
     user_id = get_jwt_identity()
-    prompt = get_refined_prompt(data["theme"], data["products"], data["offer"], data["colors"])
+    prompt = get_refined_prompt(data["theme"], data["products"], data["offer"], data["colors"]) 
     image_url = generate_banner_image(prompt)
 
     history_collection.insert_one({
