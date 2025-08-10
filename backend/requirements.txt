@@ -4,6 +4,6 @@ pymongo
 flask-jwt-extended
 bcrypt
 python-dotenv
-openai
+openai==1.55.0
 gunicorn
 werkzeug
