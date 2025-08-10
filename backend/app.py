@@ -13,8 +13,8 @@ import datetime
 import uuid
 import werkzeug
 from dotenv import load_dotenv
-from openai import OpenAI
-import json
+import requests
+import time
 
 # Load environment variables
 load_dotenv()
@@ -39,10 +39,10 @@ users_collection = db["users"]
 history_collection = db["history"]
 banners_collection = db["banners"]
 
-# OpenAI setup
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-OPENAI_CHAT_MODEL = os.getenv("OPENAI_CHAT_MODEL", "gpt-4o-mini")
-OPENAI_IMAGE_MODEL = os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-1")
+# AI Horde (Stable Horde) setup
+AI_HORDE_API_KEY = os.getenv("AI_HORDE_API_KEY", "0000000000")  # anonymous key allowed
+AI_HORDE_API_BASE = os.getenv("AI_HORDE_API_BASE", "https://aihorde.net")
+AI_HORDE_CLIENT_AGENT = "BannerCraft/1.0"
 
 @app.errorhandler(NoAuthorizationError)
 def handle_no_auth(err):
@@ -56,52 +56,82 @@ def get_refined_prompt(theme, products, offer, colors):
     products_str = ", ".join([p.strip() for p in products])
     colors_str = ", ".join([c.strip() for c in colors])
 
-    user_prompt = f"""
-I need to generate a promotional banner using DALL·E 3.
-
-Details:
-- Theme: {theme}
-- Products: {products_str}
-- Promotional Offer: {offer}
-- Color Palette: {colors_str}
-- Aspect Ratio: 1:7 (1360x800 px)
-
-Please write a vivid, visually rich DALL·E 3 prompt that includes:
-1. A festive or event-based layout matching the theme
-2. Natural-looking product placement (e.g., in baskets, on wood platters)
-3. Clear visual emphasis on the offer text
-4. A color-matched background and mood
-5. Marketing style, not artistic or abstract
-
-Output only the generated prompt.
-"""
-    response = client.chat.completions.create(
-        model=OPENAI_CHAT_MODEL,
-        messages=[
-            {
-                "role": "system",
-                "content": "You are an expert creative director and marketing strategist. Your role is to craft highly detailed, visually imaginative, and commercially effective prompts for DALL·E 3 to generate promotional banners."
-            },
-            {"role": "user", "content": user_prompt}
-        ]
+    # Deterministic prompt builder tailored for photorealistic marketing banners
+    positive_prompt_parts = [
+        f"highly detailed professional marketing banner for {theme}",
+        f"featuring {products_str}",
+        f"clean layout, product-centric composition, realistic lighting, studio quality",
+        f"bold typography for offer text: {offer}",
+        f"cohesive color palette: {colors_str}",
+        "sharp focus, vibrant, commercial photography, product showcase on textured surface",
+        "symmetrical balance, subtle depth of field, soft shadows"
+    ]
+    negative_prompt = (
+        "low quality, blurry, watermark, text artifacts, disfigured, deformed, extra limbs,"
+        " lowres, jpeg artifacts, nsfw, cartoons, illustration, painting"
     )
-    return response.choices[0].message.content.strip()
+
+    return ", ".join([p for p in positive_prompt_parts if p]) + f" ### negative: {negative_prompt}"
 
 def generate_banner_image(prompt):
-    result = client.images.generate(
-        model=OPENAI_IMAGE_MODEL,
-        prompt=prompt,
-        size="1024x1024",
-        quality="standard",
-        response_format="url"
+    headers = {
+        "apikey": AI_HORDE_API_KEY,
+        "Client-Agent": AI_HORDE_CLIENT_AGENT,
+        "Content-Type": "application/json",
+    }
+
+    # Create async generation job
+    payload = {
+        "prompt": prompt,
+        "params": {
+            "sampler_name": "k_euler_a",
+            "cfg_scale": 7,
+            "denoising_strength": 0.72,
+            "steps": 28,
+            "width": 1024,
+            "height": 1024,
+            "karras": True,
+            "hires_fix": True
+        },
+        "nsfw": False,
+        "censor_nsfw": True,
+        # Let the network choose suitable models; can be restricted if needed
+        # "models": ["SDXL 1.0"],
+    }
+
+    create_resp = requests.post(
+        f"{AI_HORDE_API_BASE}/api/v2/generate/async",
+        headers=headers,
+        json=payload,
+        timeout=30
     )
-    try:
-        return result.data[0].url
-    except Exception:
-        try:
-            return "data:image/png;base64," + result.data[0].b64_json
-        except Exception:
-            raise RuntimeError("Failed to generate image URL from OpenAI response")
+    create_resp.raise_for_status()
+    job = create_resp.json()
+    job_id = job.get("id")
+    if not job_id:
+        raise RuntimeError("AI Horde did not return a job id")
+
+    # Poll for completion
+    max_wait_seconds = int(os.getenv("AI_HORDE_MAX_WAIT", "120"))
+    start_time = time.time()
+    while time.time() - start_time < max_wait_seconds:
+        time.sleep(2)
+        check_resp = requests.get(
+            f"{AI_HORDE_API_BASE}/api/v2/generate/check/{job_id}",
+            headers=headers,
+            timeout=30
+        )
+        check_resp.raise_for_status()
+        status = check_resp.json()
+        if status.get("done"):
+            generations = status.get("generations") or []
+            if generations:
+                img_b64 = generations[0].get("img")
+                if img_b64:
+                    return "data:image/png;base64," + img_b64
+            break
+
+    raise RuntimeError("Image generation timed out. Please try again.")
 
 @app.route("/api/signup", methods=["POST"])
 def signup():
@@ -143,7 +173,7 @@ def signup():
         }
     })
 
-@app.route("/api/login", methods=["POST"])
+@app.route("/api/login", methods=["POST"]) 
 def login():
     data = request.json
     email = data.get("email")
@@ -167,7 +197,7 @@ def login():
         }
     })
 
-@app.route("/api/me", methods=["GET"])
+@app.route("/api/me", methods=["GET"]) 
 @jwt_required()
 def get_me():
     user_id = get_jwt_identity()
@@ -185,7 +215,7 @@ def get_me():
         **{field: user.get(field, "") for field in fields}
     }), 200
 
-@app.route("/api/update-profile", methods=["POST"])
+@app.route("/api/update-profile", methods=["POST"]) 
 @jwt_required()
 def update_profile():
     user_id = get_jwt_identity()
@@ -209,7 +239,7 @@ def update_profile():
     except Exception as e:
         return jsonify({'error': 'Server-side exception occurred'}), 500
 
-@app.route("/api/upload-profile-image", methods=["POST"])
+@app.route("/api/upload-profile-image", methods=["POST"]) 
 @jwt_required()
 def upload_profile_image():
     user_id = get_jwt_identity()
@@ -232,7 +262,7 @@ def upload_profile_image():
     except Exception as e:
         return jsonify({"success": False, "message": f"Error uploading image: {str(e)}"}), 500
 
-@app.route("/api/generate", methods=["POST"])
+@app.route("/api/generate", methods=["POST"]) 
 @jwt_required()
 def generate_banner():
     data = request.json
@@ -261,14 +291,14 @@ def generate_banner():
     banners_collection.insert_one(banner)
     return jsonify({"prompt": prompt, "image_url": image_url})
 
-@app.route("/api/history", methods=["GET"])
+@app.route("/api/history", methods=["GET"]) 
 @jwt_required()
 def get_history():
     user_id = get_jwt_identity()
     entries = history_collection.find({"user_id": ObjectId(user_id)}).sort("_id", -1)
     return jsonify([{"prompt": e["prompt"], "image_url": e["image_url"]} for e in entries])
 
-@app.route("/api/banners", methods=["GET"])
+@app.route("/api/banners", methods=["GET"]) 
 @jwt_required()
 def get_banners():
     user_id = get_jwt_identity()
@@ -285,7 +315,7 @@ def get_banners():
         } for b in banners]
     })
 
-@app.route("/api/banners", methods=["POST"])
+@app.route("/api/banners", methods=["POST"]) 
 @jwt_required()
 def save_banner():
     user_id = get_jwt_identity()
@@ -316,7 +346,7 @@ def save_banner():
         }
     })
 
-@app.route("/api/banners/<banner_id>", methods=["DELETE"])
+@app.route("/api/banners/<banner_id>", methods=["DELETE"]) 
 @jwt_required()
 def delete_banner(banner_id):
     user_id = get_jwt_identity()
@@ -326,7 +356,7 @@ def delete_banner(banner_id):
     banners_collection.delete_one({"_id": ObjectId(banner_id)})
     return jsonify({"success": True, "message": "Banner deleted successfully"})
 
-@app.route("/api/banners/stats", methods=["GET"])
+@app.route("/api/banners/stats", methods=["GET"]) 
 @jwt_required()
 def get_banner_stats():
     user_id = get_jwt_identity()

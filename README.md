@@ -84,9 +84,9 @@ python app.py
 ```
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/bannercraft
 JWT_SECRET_KEY=your_secure_jwt_secret_key
-OPENAI_API_KEY=sk-...
-OPENAI_CHAT_MODEL=gpt-4o-mini
-OPENAI_IMAGE_MODEL=gpt-image-1
+AI_HORDE_API_KEY=0000000000 # optional; anonymous default is used
+AI_HORDE_API_BASE=https://aihorde.net
+AI_HORDE_MAX_WAIT=120
 ```
 
 ### Frontend Setup
@@ -157,7 +157,7 @@ graph TD
 - **Framework**: Flask (Python)
 - **Database**: MongoDB
 - **Authentication**: JWT (JSON Web Tokens)
-- **AI Integration**: OpenAI API (Images + Chat)
+- **AI Integration**: AI Horde (free) for image generation; deterministic prompt builder (no API key required)
 - **Key Libraries**: flask-cors, bcrypt, python-dotenv
 
 #### 🔸 Frontend
